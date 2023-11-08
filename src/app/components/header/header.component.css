@@ -1,0 +1,28 @@
+header {
+  height: 5.6rem;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+
+  background-color: #330481;
+}
+
+header .logo-container {
+  padding-left: 2rem;
+  flex: auto;
+}
+
+nav {
+  font-size: 1.5rem;
+  display: flex;
+  gap: 2rem;
+
+}
+
+nav > a {
+  color: white;
+  text-decoration: none;
+
+}
