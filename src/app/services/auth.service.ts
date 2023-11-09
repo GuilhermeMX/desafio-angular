@@ -1,30 +1,44 @@
 import { Injectable } from '@angular/core';
-import { Observable, delay, of } from 'rxjs';
+import { Observable, delay, of, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+interface AuthResponse {
+  token: string;
+  isAdmin: boolean;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8090/usuario/autenticar'; 
+  private apiUrl = 'http://localhost:8090/usuario'; 
   private tokenKey = 'authToken';
   private adminKey = 'isAdmin';
 
-  autenticarUsuario(login: string, senha: string): Observable<any> {
-    const url = `${this.apiUrl}/usuario/autenticar`;
+  constructor(private http: HttpClient) {}
 
-    if ((login === 'admin' && senha === 'suporte') || (login === 'convidado' && senha === 'manager')) {
-      const respostaSimulada = {
-        token: 'token_simulado',
-        isAdmin: login === 'admin',
-        expiracao: new Date().getTime() + 300000, // 5 minutos a partir do momento atual
-      };
-  
-      this.salvarTokenEAdmin(respostaSimulada.token, respostaSimulada.isAdmin);
+  autenticarUsuario(login: string, senha: string): Observable<AuthResponse> {
+    const url = `${this.apiUrl}/autenticar`;
+    const params = new HttpParams()
+      .set('login', login)
+      .set('senha', senha);
 
-      return of(respostaSimulada);
-    } else {
-      return this.handleError<any>('Autenticação', {});
-    }
+    console.log('Dados enviados no corpo da solicitação:', params);
+
+    return this.http.post<AuthResponse>(url, params.toString(), {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    }).pipe(
+      tap((resposta) => {
+        console.log('Resposta do servidor:', resposta);
+        this.salvarTokenEAdmin(resposta.token, resposta.isAdmin);
+      }),
+      catchError((error: any) => {
+        console.log('ja deu erro')
+        this.handleError(error);
+        return throwError(error);
+      })
+    );
   }
 
   renovarToken(token: string): Observable<any> {
@@ -40,9 +54,13 @@ export class AuthService {
     return of(respostaSimulada).pipe(delay(1000));
   }
 
-  private salvarTokenEAdmin(token: string, isAdmin: boolean): void {
-    localStorage.setItem(this.tokenKey, token);
-    localStorage.setItem(this.adminKey, isAdmin.toString());
+  private salvarTokenEAdmin(token: string | undefined, isAdmin: boolean | undefined): void {
+    if (token && isAdmin !== undefined) {
+      localStorage.setItem(this.tokenKey, token);
+      localStorage.setItem(this.adminKey, isAdmin.toString());
+    } else {
+      console.error(this.tokenKey, this);
+    }
   }
 
   obterTokenSalvo(): string | null {
@@ -60,7 +78,7 @@ export class AuthService {
   }
 
   private handleError<T>(operation = 'Operation', resultado?: T): Observable<T> {
-      console.error(`${operation} falhou`);
-      return of(resultado as T);
+    console.error(`${operation} falhou`);
+    return of(resultado as T);
   }
 }

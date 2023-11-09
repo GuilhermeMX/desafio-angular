@@ -1,1 +1,8 @@
-<p>countries works!</p>
+<section class="paises-container">
+  <h1>Lista de Países</h1>
+  <ul>
+    <li *ngFor="let pais of paises">
+      {{ pais.nome }} <!-- Ajuste conforme a estrutura do seu país -->
+    </li>
+  </ul>
+</section>
