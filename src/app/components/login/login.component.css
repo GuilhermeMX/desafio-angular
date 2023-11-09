@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+.login-container {
+  position: relative;
+  height: 100%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+h1 {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.login {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 15rem;
+  padding: 2rem 3rem 2rem 3rem;
+  margin-top: 2rem;
+  border-radius: 15px;
+}
+
+input {
+  font-size: 1rem;
+  width: 17rem;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+}
+
+.inputSubmit {
+  font-size: 15px;
+  color: white;
+  background-color: #330481;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+}
+
+.inputSubmit:hover {    
+  background-color: black;
+  cursor: pointer;
+}
+
+h4 {
+  margin-top: 1rem;
+  color: #696969;
+}
+
+h4 > a {
+  color: #AD2A2D;
+}
+
+
+@media screen and (max-width: 600px) {
+  body {
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1087px) {
+  body {
+  }
+
+  .login {
+    position: relative;
+    padding: 15px 50px 15px 50px;
+  }
+
+  .login-container {
+    height: 100%;
+    width: 100vw;
+  }
+
+  .input {
+    padding: 15px 40px 15px 40px; 
+  }
+
+}
+
+@media screen and (min-width: 1088px) {
+
+  #burger {
+    display: none;
+  }
+
+  header {
+    display: flex;
+    height: 82px;
+  }
+
+  nav {
+    display: block;
+  }
+
+  nav > ul {
+    margin: 0;
+    height: 100%;
+  }
+
+  nav > ul > li {
+    display: inline-block;
+    padding: 17px 0 15px 0;
+  }
+
+  .institucional {
+    margin: 0;
+  }
+
+  .logo img {
+    position: relative;
+  }
+
+  .logo {
+    width: 27vw;
+    padding-left: 0;
+  }
+}
+
+@media screen and (min-width: 1360px) {
+  body {
+   // background-color: green;
+  }
+
+  .social-media {
+    justify-content: flex-start;
+    padding-left: 14.7rem;
+  }
+
+  .logo {
+    width: 35vw;
+    padding-left: 10rem;
+  }
+
+  nav > ul > li {
+    display: inline-block;
+    padding: 17px 15px 15px 0;
+  }
+}
