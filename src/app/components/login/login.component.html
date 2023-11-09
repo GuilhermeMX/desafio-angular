@@ -1,13 +1,13 @@
 <section class="login-container">
   <div class="login">
-  <h1>Entrar</h1>
-  <form action="/authenticate" method="POST">
-    <input class="input" type="text" name="email" placeholder="Email">
-    <br><br>
-    <input class="input" type="password" name="senha" placeholder="Senha">
-    <br><br>
-    <input class="inputSubmit" type="submit" name="submit" value="Enviar">
-  </form>
-  <h4>Não possui uma conta? <a href="/register">Cadastre-se!</a></h4>
+    <h1>Entrar</h1>
+    <form (ngSubmit)="fazerLogin()" [formGroup]="loginForm">
+      <input class="input" type="text" formControlName="login" placeholder="login">
+      <br><br>
+      <input class="input" type="password" formControlName="senha" placeholder="Senha">
+      <br><br>
+      <input class="inputSubmit" type="submit" name="submit" value="Enviar">
+    </form>
+    <h4>Não possui uma conta? <a href="#">Cadastre-se!</a></h4>
   </div>
 </section>
