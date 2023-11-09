@@ -5,13 +5,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class PaisService {
-  private apiUrl = 'https://api.exemplo.com/paises';
+export class CountryService {
+  private apiUrl = 'http://localhost:8090/paises';
 
   constructor(private http: HttpClient) {}
 
-  countryRegister(country: any): Observable<any> {
-    const url = `${this.apiUrl}/cadastro`;
-    return this.http.post(url, country);
+  getCountry(): Observable<any> {
+    return this.http.get(this.apiUrl);
   }
 }
