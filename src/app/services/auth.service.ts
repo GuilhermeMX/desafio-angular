@@ -20,6 +20,7 @@ export class AuthService {
 
   autenticarUsuario(login: string, senha: string): Observable<AuthResponse> {
     const url = `${this.apiUrl}/autenticar`;
+    
     const params = new HttpParams()
       .set('login', login)
       .set('senha', senha);
@@ -30,9 +31,7 @@ export class AuthService {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     }).pipe(
       tap((resposta) => {
-        console.log('Resposta do servidor:', resposta);
-        this.salvarTokenEAdmin(resposta.token, resposta.isAdmin);
-      }),
+        this.handleAuthResponse(resposta)}),
       catchError((error: any) => {
         console.log('ja deu erro')
         this.handleError(error);
@@ -41,25 +40,32 @@ export class AuthService {
     );
   }
 
-  renovarToken(token: string): Observable<any> {
-    // Simular a renovação do token
-    const respostaSimulada = {
-      token: 'novo_token_simulado',
-      isAdmin: true,
-      expiracao: new Date().getTime() + 300000, // 5 minutos a partir do momento atual
-    };
+  renovarToken(token: string): Observable<AuthResponse> {
+    const url = `${this.apiUrl}/renovar-ticket?token=${token}`;
 
-    this.salvarTokenEAdmin(respostaSimulada.token, respostaSimulada.isAdmin);
+    //const params = new HttpParams().set('token', token);
 
-    return of(respostaSimulada).pipe(delay(1000));
+    return this.http.post<AuthResponse>(url, {}, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    }).pipe(
+      tap((resposta) => {
+        console.log('chegou até aqui')
+        this.handleAuthResponse(resposta);
+        console.log('salvou!')
+      }),
+      catchError((error: any) => {
+        this.handleError(error);
+        return throwError(error);
+      })
+    );
   }
 
-  private salvarTokenEAdmin(token: string | undefined, isAdmin: boolean | undefined): void {
-    if (token && isAdmin !== undefined) {
-      localStorage.setItem(this.tokenKey, token);
-      localStorage.setItem(this.adminKey, isAdmin.toString());
+  private handleAuthResponse(resposta: AuthResponse): void {
+    if (resposta.token !== undefined && resposta.isAdmin !== undefined) {
+      localStorage.setItem(this.tokenKey, resposta.token);
+      localStorage.setItem(this.adminKey, resposta.isAdmin.toString());
     } else {
-      console.error(this.tokenKey, this);
+      console.error('Token ou isAdmin é indefinido na resposta do servidor:', resposta);
     }
   }
 
@@ -77,8 +83,8 @@ export class AuthService {
     localStorage.removeItem(this.adminKey);
   }
 
-  private handleError<T>(operation = 'Operation', resultado?: T): Observable<T> {
-    console.error(`${operation} falhou`);
-    return of(resultado as T);
+  private handleError(error: any): void {
+    console.error('Erro:', error);
+    // Adicione lógica adicional de tratamento de erro conforme necessário
   }
 }

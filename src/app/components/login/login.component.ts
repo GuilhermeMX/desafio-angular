@@ -11,11 +11,12 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
   ) {
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   fazerLogin() {
     if (this.loginForm.valid) {
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
         (resposta) => {
           console.log('Login bem-sucedido!', resposta);
 
-          // Redirecionar para a próxima página ou realizar outras ações após o login bem-sucedido
+          this.router.navigate(['/countries'])
         },
         (erro) => {
           console.error('Erro ao autenticar', erro);
