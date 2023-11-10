@@ -33,7 +33,6 @@ export class AuthService {
       tap((resposta) => {
         this.handleAuthResponse(resposta)}),
       catchError((error: any) => {
-        console.log('ja deu erro')
         this.handleError(error);
         return throwError(error);
       })
@@ -85,6 +84,5 @@ export class AuthService {
 
   private handleError(error: any): void {
     console.error('Erro:', error);
-    // Adicione lógica adicional de tratamento de erro conforme necessário
   }
 }
