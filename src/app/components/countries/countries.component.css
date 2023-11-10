@@ -1,0 +1,31 @@
+/* Define um estilo moderno para a tabela de países */
+.paises-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  color: #330481;
+}
+
+.paises-table th,
+.paises-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #330481;
+}
+
+.paises-table th {
+  background-color: #330481;
+  color: #fff;
+}
+
+/* Adicione estilos responsivos para tabelas em telas menores */
+@media screen and (max-width: 768px) {
+  .paises-table {
+    font-size: 14px;
+  }
+
+  .paises-table th,
+  .paises-table td {
+    padding: 8px;
+  }
+}
