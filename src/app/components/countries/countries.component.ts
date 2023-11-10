@@ -10,21 +10,28 @@ import { CountryService } from '../../services/country.service';
   styleUrl: './countries.component.css'
 })
 export class CountriesComponent implements OnInit {
-  paises: any[] = []; // Tipo pode ser ajustado conforme a estrutura do backend
+  countries: any[] = []; 
 
   constructor(private countryService: CountryService) {}
 
   ngOnInit(): void {
-    this.loadCountries();
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      this.loadCountries(token);
+    } else {
+      console.error('Token não encontrado.');
+    }
+
   }
 
-  loadCountries() {
-    this.countryService.getCountry().subscribe(
-      (data: any) => {
-        this.paises = data; // gettin countries list
+  loadCountries(token: string) {
+    this.countryService.getCountry(token).subscribe(
+      (countries) => {
+        this.countries = countries;
       },
-      error => {
-        console.error('Erro ao obter países:', error);
+      (error) => {
+        console.error('Erro ao carregar países', error);
       }
     );
   }
