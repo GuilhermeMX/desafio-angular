@@ -1,27 +1,16 @@
 # DesafioAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.0.
+Projeto feito com Angular e Typescript, consumindo API em Java.
+
+Este projeto foi desenvolvido em angular versão 17. E gerado com [Angular CLI](https://github.com/angular/angular-cli) version 17.0.0.
 
 ## Development server
+Para rodar esta máquina no seu ambiente local, é necessário ter o Angular v17 na sua máquina, este projeto foi desenvolvido no padrão standalone, então não possui por padrão o arquivo app.module.ts e seus respectivos módulos.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Rode `ng serve` para rodar a aplicação após ter o backend instalado em seu ambiente. 
 
-## Code scaffolding
+## Desafio 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Este desafio é uma aplicação SPA que permite a criação, listagem, edição e exclusão de países (CRUD). É necessário que o usuário se autentique para poder acessar a listagem e realizar operações.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Esta aplicação é adaptada e responsiva para todos os modelos de tela.
