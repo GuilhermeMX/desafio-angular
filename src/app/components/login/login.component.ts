@@ -40,12 +40,9 @@ export class LoginComponent implements OnInit {
         },
         (erro) => {
           console.error('Erro ao autenticar', erro);
-
-          // Lidar com erros de autenticação, por exemplo, exibir uma mensagem de erro no formulário
         }
       );
     } else {
-      // Tratar o formulário inválido se necessário
       console.error('Formulário inválido', this.loginForm);
     }
   }
