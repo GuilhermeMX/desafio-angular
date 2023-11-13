@@ -1,4 +1,3 @@
-/* Define um estilo moderno para a tabela de países */
 .paises-table {
   width: 100%;
   border-collapse: collapse;
@@ -18,7 +17,6 @@
   color: #fff;
 }
 
-/* Adicione estilos responsivos para tabelas em telas menores */
 @media screen and (max-width: 768px) {
   .paises-table {
     font-size: 14px;
