@@ -42,15 +42,11 @@ export class AuthService {
   renovarToken(token: string): Observable<AuthResponse> {
     const url = `${this.apiUrl}/renovar-ticket?token=${token}`;
 
-    //const params = new HttpParams().set('token', token);
-
     return this.http.post<AuthResponse>(url, {}, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     }).pipe(
       tap((resposta) => {
-        console.log('chegou até aqui')
         this.handleAuthResponse(resposta);
-        console.log('salvou!')
       }),
       catchError((error: any) => {
         this.handleError(error);
